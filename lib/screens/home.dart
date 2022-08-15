@@ -1,9 +1,36 @@
 import 'package:flutter/material.dart';
+import 'package:state_management/model/user.dart';
+import 'package:state_management/screens/user_list_screen.dart';
+import 'package:state_management/widget/cheetah_button.dart';
 import 'package:state_management/widget/cheetah_input.dart';
+import 'package:state_management/widget/user_list.dart';
 
-class Home extends StatelessWidget {
+class Home extends StatefulWidget {
   const Home({Key? key}) : super(key: key);
 
+  @override
+  State<Home> createState() => _HomeState();
+}
+
+class _HomeState extends State<Home> {
+  late String _city;
+  late String _name;
+
+  List<User> userList = [];
+
+  addUser(User user) {
+    setState(() {
+      userList.add(user);
+    });
+  }
+
+  deleteUser(User user) {
+    setState(() {
+      userList.removeWhere((user) => user.name == user.name);
+    });
+  }
+
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -15,13 +42,58 @@ class Home extends StatelessWidget {
         ),
       ),
       body: SingleChildScrollView(
-        padding: EdgeInsets.all(32),
-        child: Form(child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            CheetahInput(),
-          ],
-        )),
+        padding: const EdgeInsets.all(32),
+        child: Form(
+          key: _formKey,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              CheetahInput(
+                labelText: 'Name',
+                onSaved: (value) {
+                  _name = value;
+                },
+              ),
+              const SizedBox(height: 16),
+              CheetahInput(
+                labelText: 'City',
+                onSaved: (value) {
+                  _city = value;
+                },
+              ),
+              const SizedBox(height: 20),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  CheetahButton(
+                    text: 'ADD',
+                    onPressed: () {
+                      if (!_formKey.currentState !.validate()) return;
+
+                      _formKey.currentState!.save();
+
+                      addUser(User(_name, _city));
+                    },
+                  ),
+                  const SizedBox(width: 8),
+                  CheetahButton(
+                    text: 'List',
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => UserListScreen(userList, deleteUser),
+                        ),
+                      );
+                    },
+                  ),
+                ],
+              ),
+              const SizedBox(height: 20),
+              UserList(users: userList, onDelete: deleteUser)
+            ],
+          ),
+        ),
       ),
     );
   }
