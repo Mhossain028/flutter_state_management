@@ -40,7 +40,7 @@ class _UserListScreenState extends State<UserListScreen> {
           users: widget.users,
           onDelete: deleteUser,
         ),
-        padding: EdgeInsets.all(8),
+        padding: const EdgeInsets.all(8),
       ),
     );
   }

@@ -26,7 +26,7 @@ class _HomeState extends State<Home> {
 
   deleteUser(User user) {
     setState(() {
-      userList.removeWhere((user) => user.name == user.name);
+      userList.removeWhere((usr) => usr.name == user.name);
     });
   }
 
