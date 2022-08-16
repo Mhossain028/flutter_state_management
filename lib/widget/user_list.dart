@@ -1,19 +1,18 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
-import 'package:state_management/model/user.dart';
+import 'package:provider/provider.dart';
+import 'package:state_management/controller/user_notifier.dart';
 
 class UserList extends StatelessWidget {
-  final List<User> users;
-  final Function(User) onDelete;
 
   const UserList({
     Key? key,
-    required this.users,
-    required this.onDelete,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    UserNotifier userNotifier = Provider.of<UserNotifier>(context);
+    print("User list rebuilding");
     return ListView.builder(
       shrinkWrap: true,
       itemBuilder: (BuildContext context, int index) => Card(
@@ -26,32 +25,32 @@ class UserList extends StatelessWidget {
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(
-                    'Name: ${users[index].name}',
+                  Consumer<UserNotifier>(builder: (_, notifier, __) => Text(
+                    'Name: ${notifier.userList[index].name}',
                     style: const TextStyle(
                       fontSize: 18,
-                      color: Colors.black,
                     ),
-                  ),
+                  ),),
                   const SizedBox(height: 8),
-                  Text(
-                    'City: ${users[index].city}',
+                  Consumer<UserNotifier>(builder: (_, notifier, __) => Text(
+                    'Name: ${notifier.userList[index].city}',
                     style: const TextStyle(
                       fontSize: 18,
-                      color: Colors.black,
                     ),
-                  ),
+                  ),),
                 ],
               ),
-              IconButton(
+              Consumer <UserNotifier> (
+                builder: (_, notifier, __) => IconButton(
                 icon: const Icon(Icons.delete),
-                onPressed: () => onDelete(users[index]),
-              )
+                onPressed: () => notifier.deleteUser(index),
+              ),
+              ),
             ],
           ),
         ),
       ),
-      itemCount: users.length,
+      itemCount: userNotifier.userList.length,
     );
   }
 }

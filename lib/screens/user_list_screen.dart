@@ -1,16 +1,11 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
-import 'package:state_management/model/user.dart';
 import 'package:state_management/widget/user_list.dart';
 
 class UserListScreen extends StatefulWidget {
-  final List<User> users;
-  final Function(User) onDelete;
 
-  UserListScreen(
-    this.users,
-    this.onDelete,
-  );
+
+  UserListScreen();
 
 
   @override
@@ -18,12 +13,6 @@ class UserListScreen extends StatefulWidget {
 }
 
 class _UserListScreenState extends State<UserListScreen> {
-  deleteUser(User user)
-  {
-    setState(() {
-      widget.onDelete(user);
-    });
-  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -36,10 +25,7 @@ class _UserListScreenState extends State<UserListScreen> {
       ),
       body: Padding(
         // ignore: sort_child_properties_last
-        child: UserList(
-          users: widget.users,
-          onDelete: deleteUser,
-        ),
+        child: UserList(),
         padding: const EdgeInsets.all(8),
       ),
     );
