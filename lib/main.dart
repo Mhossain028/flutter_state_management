@@ -3,29 +3,26 @@ import 'package:provider/provider.dart';
 import 'package:state_management/controller/user_notifier.dart';
 import 'package:state_management/screens/home.dart';
 
-void main() => runApp(MyApp(
-  MultiProvider(providers: [
-    ChangeNotifierProvider(create: (_) => UserNotifier()),
-  ],
-  
-  ),
-));
+void main() => runApp(const MyApp());
 
 class MyApp extends StatelessWidget {
-  MyApp(MultiProvider multiProvider);
+  const MyApp({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        appBarTheme: const AppBarTheme(
-          color: Colors.blue,
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (_) => UserNotifier()),
+      ],
+      child: MaterialApp(
+        debugShowCheckedModeBanner: false,
+        theme: ThemeData(
+          appBarTheme: const AppBarTheme(color: Colors.blue),
+          primaryColor: Colors.blue,
+          backgroundColor: const Color(0xFFDCDCDC),
         ),
-        primaryColor: Colors.blue,
-        backgroundColor: Color(0xFFDCDCDC),
+        home: const Home(),
       ),
-      home: Home(),
     );
   }
 }

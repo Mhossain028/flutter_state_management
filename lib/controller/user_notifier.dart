@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:state_management/model/user.dart';
 
 class UserNotifier extends ChangeNotifier {
+  // ignore: prefer_final_fields
   List<User> _userList = [];
   int _age = 0;
   int _height = 0;
@@ -18,6 +19,7 @@ class UserNotifier extends ChangeNotifier {
   }
 
   deleteUser(index) {
+    // ignore: no_leading_underscores_for_local_identifiers
     _userList.removeWhere((_user) => _user.name == userList[index].name);
     notifyListeners();
   }

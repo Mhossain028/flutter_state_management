@@ -12,7 +12,6 @@ class UserList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     UserNotifier userNotifier = Provider.of<UserNotifier>(context);
-    print("User list rebuilding");
     return ListView.builder(
       shrinkWrap: true,
       itemBuilder: (BuildContext context, int index) => Card(

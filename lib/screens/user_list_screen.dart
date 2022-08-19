@@ -5,7 +5,7 @@ import 'package:state_management/widget/user_list.dart';
 class UserListScreen extends StatefulWidget {
 
 
-  UserListScreen();
+  const UserListScreen({Key? key}) : super(key: key);
 
 
   @override
@@ -23,10 +23,10 @@ class _UserListScreenState extends State<UserListScreen> {
           style: TextStyle(color: Colors.white),
         ),
       ),
-      body: Padding(
+      body: const Padding(
         // ignore: sort_child_properties_last
         child: UserList(),
-        padding: const EdgeInsets.all(8),
+        padding: EdgeInsets.all(8),
       ),
     );
   }

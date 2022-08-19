@@ -73,7 +73,7 @@ class _HomeState extends State<Home> {
                         context,
                         MaterialPageRoute(
                           builder: (context) =>
-                              UserListScreen(),
+                              const UserListScreen(),
                         ),
                       );
                     },
@@ -81,7 +81,7 @@ class _HomeState extends State<Home> {
                 ],
               ),
               const SizedBox(height: 20),
-              UserList(),
+              const UserList(),
             ],
           ),
         ),
